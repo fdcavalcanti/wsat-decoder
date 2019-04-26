@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 lineLen = 2080
 lineTotal = int(np.floor(len(audioRaw)/lineLen))
 audioRaw = audioRaw[0:lineTotal*lineLen]
+audioRaw =  audioRaw/(2.**15)
 
 #Filter audio with Hilbert transform and get absolute value
 audioFiltered = sig.hilbert(audioRaw)
@@ -16,8 +17,8 @@ signal = np.abs(audioFiltered)
 #Generate syncA signal
 T = 1/4160
 t = np.linspace(0,28*T,11025,endpoint=True)
-sqr = sig.square(2*np.pi*1040*t-4*T)
-corr = np.correlate(signal,sqr)
+#sqr = sig.square(2*np.pi*1040*t-4*T)
+#corr = np.correlate(signal,sqr)
 
-plt.plot(corr[1:np.floor(len(corr)/2)])
+plt.plot(audioRaw[1:10000])
 plt.show()
